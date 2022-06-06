@@ -114,3 +114,8 @@
     flex-direction: column;
   }
 }
+
+.textblackP301 {
+  color: black;
+  padding: 30px;
+}

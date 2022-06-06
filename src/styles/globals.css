@@ -14,3 +14,14 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  --swiper-navigation-color: #000000;
+  width: calc(var(--swiper-navigation-size) / 44 * 27);
+  height: calc(var(--swiper-navigation-size) / 1);
+}
+
+.swiper-pagination {
+  --swiper-pagination-color: #000000;
+}
