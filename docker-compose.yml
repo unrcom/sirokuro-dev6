@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  hreact:
+    image: node:latest
+    container_name: 'sirokuro-dev6'
+    hostname: 'sirokuro-dev6'
+    ports:
+      - '3006:3000'
+    stdin_open: true
+    tty: true
+    working_dir: '/var/www/html'
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - sirokuronet
+networks:
+  sirokuronet:
+    external: true
+
