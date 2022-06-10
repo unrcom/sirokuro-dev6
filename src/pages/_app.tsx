@@ -39,7 +39,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       console.log(event);
-      validateSession();
       if (event === "SIGNED_IN" && pathname === "/auth") {
         push("/");
       }
