@@ -24,21 +24,28 @@ const Profile: NextPage = () => {
   //     "avatars"
   //   );
   const updateProfile = () => {
-    updateProfileMutation.mutate({
-      id: session?.user?.id,
-      username: editedProfile.username,
-      avatar_url: editedProfile.avatar_url,
-      contact_madd: editedProfile.contact_madd,
-      year_of_birth: editedProfile.year_of_birth,
-      zip: editedProfile.zip,
-      job: editedProfile.job,
-      facebook: editedProfile.facebook,
-      twitter: editedProfile.twitter,
-      homepage: editedProfile.homepage,
-      blog: editedProfile.blog,
-      gender: editedProfile.gender,
-    });
+    if (session) {
+      if (session.user) {
+        if (session.user.id) {
+          updateProfileMutation.mutate({
+            id: session?.user?.id,
+            username: editedProfile.username,
+            avatar_url: editedProfile.avatar_url,
+            contact_madd: editedProfile.contact_madd,
+            year_of_birth: editedProfile.year_of_birth,
+            zip: editedProfile.zip,
+            job: editedProfile.job,
+            facebook: editedProfile.facebook,
+            twitter: editedProfile.twitter,
+            homepage: editedProfile.homepage,
+            blog: editedProfile.blog,
+            gender: editedProfile.gender,
+          });
+        }
+      }
+    }
   };
+
   return (
     <>
       <Layout title="sirokuro.site">
@@ -67,9 +74,9 @@ const Profile: NextPage = () => {
         <input
           className="my-2 mx-2 rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none"
           type="text"
-          value={editedProfile.birth_year || ""}
+          value={editedProfile.year_of_birth || ""}
           onChange={(e) =>
-            update({ ...editedProfile, birth_year: e.target.value })
+            update({ ...editedProfile, year_of_birth: e.target.value })
           }
         />
         <p>自宅の郵便番号</p>
@@ -90,10 +97,8 @@ const Profile: NextPage = () => {
         <input
           className="my-2 mx-2 rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none"
           type="text"
-          value={editedProfile.occupantion || ""}
-          onChange={(e) =>
-            update({ ...editedProfile, occupantion: e.target.value })
-          }
+          value={editedProfile.job || ""}
+          onChange={(e) => update({ ...editedProfile, job: e.target.value })}
         />
         <button
           className={`my-5 rounded ${

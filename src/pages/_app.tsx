@@ -14,6 +14,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import { supabase } from "../utils/supabase";
 
+import useStore from "../store";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -30,31 +32,52 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const { push, pathname } = useRouter();
 
+  const session = useStore((state) => state.session);
+  const setSession = useStore((state) => state.setSession);
+
   const validateSession = async () => {
-    const user = supabase.auth.user();
-    if (dev) {
-      console.log(user);
-      if (user) {
-        console.log(user.id);
-        console.log(user.email);
+    supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      console.log(event);
+      validateSession();
+      if (event === "SIGNED_IN" && pathname === "/auth") {
+        push("/");
       }
-    }
+      if (event === "SIGNED_OUT" && pathname === "/auth") {
+        push("/auth");
+      }
+    });
+
+    // const session = supabase.auth.session();
+
+    // if (dev) {
+    //   console.log(session);
+    //   if (session) {
+    //     if (session.user) {
+    //       console.log(session.user.id);
+    //       console.log(session.user.email);
+    //     }
+    //   }
+    // }
   };
 
   useEffect(() => {
     validateSession();
   }, []);
 
-  supabase.auth.onAuthStateChange((event, _) => {
-    console.log(event);
-    validateSession();
-    if (event === "SIGNED_IN" && pathname === "/auth") {
-      push("/");
-    }
-    if (event === "SIGNED_OUT" && pathname === "/auth") {
-      push("/auth");
-    }
-  });
+  // setSession(supabase.auth.session());
+
+  // supabase.auth.onAuthStateChange((event, session) => {
+  //   setSession(session);
+  //   console.log(event);
+  //   validateSession();
+  //   if (event === "SIGNED_IN" && pathname === "/auth") {
+  //     push("/");
+  //   }
+  //   if (event === "SIGNED_OUT" && pathname === "/auth") {
+  //     push("/auth");
+  //   }
+  // });
 
   // const validateSession = async () => {
   //   const user = supabase.auth.user();

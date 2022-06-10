@@ -1,17 +1,17 @@
 import create from "zustand";
-import { User } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import { EditedProfile } from "../types";
 
 type State = {
-  user: User | null;
-  setUser: (payload: User | null) => void;
+  session: Session | null;
+  setSession: (payload: Session | null) => void;
   editedProfile: EditedProfile;
   updateEditedProfile: (payload: EditedProfile) => void;
   resetEditedProfile: () => void;
 };
 const useStore = create<State>((set) => ({
-  user: null,
-  setUser: (payload) => set({ user: payload }),
+  session: null,
+  setSession: (payload) => set({ session: payload }),
   editedProfile: {
     username: "",
     avatar_url: "",
