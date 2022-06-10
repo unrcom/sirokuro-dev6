@@ -25,3 +25,14 @@ a {
 .swiper-pagination {
   --swiper-pagination-color: #000000;
 }
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-family: swiper-icons;
+  font-size: var(--swiper-navigation-size);
+  /* font-size: calc(var(--swiper-navigation-size) / 2); */
+  text-transform: none !important;
+  letter-spacing: 0;
+  font-variant: initial;
+  line-height: 1;
+}

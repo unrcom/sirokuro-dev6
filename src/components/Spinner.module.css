@@ -1,0 +1,11 @@
+/* my-5 h-8 w-8 animate-spin rounded-full border-2 border-pink-600 border-t-transparent */
+
+.Spinner {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+  border-radius: 9999px;
+  --tw-border-opacity: 1;
+  border-color: rgba(219, 39, 119, var(--tw-border-opacity));
+}

@@ -1,0 +1,31 @@
+export type Profile = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  username: string | undefined;
+  avatar_url: string | undefined;
+  plan: string | undefined;
+  login_madd: string | undefined;
+  contact_madd: string | undefined;
+  year_of_birth: string | undefined;
+  zip: string | undefined;
+  job: string | undefined;
+  facebook: string | undefined;
+  twitter: string | undefined;
+  homepage: string | undefined;
+  blog: string | undefined;
+  gender: string | undefined;
+};
+export type EditedProfile = {
+  username: string | undefined;
+  avatar_url: string | undefined;
+  contact_madd: string | undefined;
+  year_of_birth: string | undefined;
+  zip: string | undefined;
+  job: string | undefined;
+  facebook: string | undefined;
+  twitter: string | undefined;
+  homepage: string | undefined;
+  blog: string | undefined;
+  gender: string | undefined;
+};
