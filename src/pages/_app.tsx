@@ -61,7 +61,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (session) {
       if (dev) {
         console.log(session);
-        }
       }
     }
   }
