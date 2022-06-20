@@ -40,25 +40,25 @@ const Auth: NextPage = () => {
     }
   };
 
-  const validateSession = async () => {
-    const user = supabase.auth.user();
-    if (dev) {
-      console.log(user);
-      if (user) {
-        console.log(user.id);
-        console.log(user.email);
-      }
-    }
-  };
+  // const validateSession = async () => {
+  //   const user = supabase.auth.user();
+  //   if (dev) {
+  //     console.log(user);
+  //     if (user) {
+  //       console.log(user.id);
+  //       console.log(user.email);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    validateSession();
-  }, []);
+  // useEffect(() => {
+  //   validateSession();
+  // }, []);
 
   const signOut = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await supabase.auth.signOut();
-    await validateSession();
+    // await validateSession();
   };
 
   return (

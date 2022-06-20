@@ -5,7 +5,6 @@ export type Profile = {
   username: string | undefined;
   avatar_url: string | undefined;
   plan: string | undefined;
-  login_madd: string | undefined;
   contact_madd: string | undefined;
   year_of_birth: string | undefined;
   zip: string | undefined;

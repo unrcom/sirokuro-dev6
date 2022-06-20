@@ -34,62 +34,40 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const session = useStore((state) => state.session);
   const setSession = useStore((state) => state.setSession);
-
-  const validateSession = async () => {
-    supabase.auth.onAuthStateChange((event, session) => {
+  useEffect(() => {
+    setSession(supabase.auth.session());
+    supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      console.log(event);
-      if (event === "SIGNED_IN" && pathname === "/auth") {
+      console.log(_event);
+      if (_event === "SIGNED_IN" && pathname === "/auth") {
         push("/");
       }
-      if (event === "SIGNED_OUT" && pathname === "/auth") {
+      if (_event === "SIGNED_OUT" && pathname === "/auth") {
         push("/auth");
       }
     });
+  }, [setSession]);
 
-    // const session = supabase.auth.session();
-
-    // if (dev) {
-    //   console.log(session);
-    //   if (session) {
-    //     if (session.user) {
-    //       console.log(session.user.id);
-    //       console.log(session.user.email);
-    //     }
-    //   }
-    // }
-  };
-
-  useEffect(() => {
-    validateSession();
-  }, []);
-
-  // setSession(supabase.auth.session());
-
-  // supabase.auth.onAuthStateChange((event, session) => {
-  //   setSession(session);
-  //   console.log(event);
-  //   validateSession();
-  //   if (event === "SIGNED_IN" && pathname === "/auth") {
-  //     push("/");
-  //   }
-  //   if (event === "SIGNED_OUT" && pathname === "/auth") {
-  //     push("/auth");
-  //   }
-  // });
-
-  // const validateSession = async () => {
-  //   const user = supabase.auth.user();
-  //   if (user && pathname === "/") {
-  //     push("/");
-  //     // } else if (!user && pathname !== '/new') {
-  //     //   await push('/auth')
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   validateSession();
-  // }, []);
+  if (session) {
+    if (dev) {
+      console.log(session);
+      if (session.user) {
+        console.log(session.user.id);
+        console.log(session.user.email);
+      }
+    }
+  } else {
+    setSession(supabase.auth.session());
+    if (session) {
+      if (dev) {
+        console.log(session);
+        if (session.user) {
+          console.log(session.user.id);
+          console.log(session.user.email);
+        }
+      }
+    }
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

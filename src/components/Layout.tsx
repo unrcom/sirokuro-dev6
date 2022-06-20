@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,6 +18,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
 
 import styles from "./Layout.module.css";
 
@@ -94,6 +95,15 @@ export const Layout: FC<Title> = ({ children, title = "sirokuro.site" }) => {
 
   const thisyear = new Date().getFullYear();
 
+  const Contents = [
+    { name: "好き嫌いを投稿する", anchor: "/suki" },
+    { name: "対決を投稿する", anchor: "/taiketsu" },
+    { name: "白黒サイトについて", anchor: "/about" },
+    { name: "よくある質問", anchor: "/faq" },
+    { name: "プロフィールの編集", anchor: "/profile" },
+    { name: "カテゴリーを追加する [＋]", anchor: "/cat" },
+  ];
+
   return (
     <>
       <div className={styles.container}>
@@ -157,24 +167,19 @@ export const Layout: FC<Title> = ({ children, title = "sirokuro.site" }) => {
           </DrawerHeader>
           <Divider />
           <List>
-            {[
-              "好き嫌いを投稿する",
-              "対決を投稿する",
-              "白黒サイトについて",
-              "よくある質問",
-            ].map((text, index) => (
-              // <ListItem button key={text} className={styles.Bgblack}>
-              <ListItem button key={text}>
-                {" "}
-                {/* <ListItemText primary={text} className={styles.Text} /> */}
-                <ListItemText primary={text} />
-              </ListItem>
+            {Contents.map((content, index) => (
+              <ListItemButton
+                key={content.name}
+                component="a"
+                href={content.anchor}
+              >
+                <ListItemText key={content.name} primary={content.name} />
+              </ListItemButton>
             ))}
           </List>
           <Divider className="Menu" />
           <List>
             {[
-              "カテゴリーを追加する [＋]",
               "ほしい？",
               "並ぶ？",
               "お取り寄せ",

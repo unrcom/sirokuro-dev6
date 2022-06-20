@@ -8,13 +8,35 @@ export const useQueryProfile = () => {
   const session = useStore((state) => state.session);
   const editedProfile = useStore((state) => state.editedProfile);
   const update = useStore((state) => state.updateEditedProfile);
+  const { createProfileMutation } = useMutateProfile();
   const getProfile = async () => {
     const { data, error, status } = await supabase
       .from("profiles")
       .select("*")
       .eq("id", session?.user?.id)
       .single();
-    if (error) {
+    if (error && status === 406) {
+      if (session?.user?.id) {
+        createProfileMutation.mutate({
+          id: session?.user?.id,
+          username: "",
+          avatar_url: "",
+          contact_madd: "",
+          year_of_birth: "",
+          zip: "",
+          job: "",
+          facebook: "",
+          twitter: "",
+          homepage: "",
+          blog: "",
+          gender: "",
+        });
+        update({
+          ...editedProfile,
+        });
+      }
+    }
+    if (error && status !== 406) {
       throw new Error(error.message);
     }
     return data;

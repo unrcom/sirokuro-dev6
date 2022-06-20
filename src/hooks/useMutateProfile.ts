@@ -4,13 +4,23 @@ import { Profile } from "../types";
 
 export const useMutateProfile = () => {
   const queryClient = useQueryClient();
+  const createProfileMutation = useMutation(
+    async (profile: Omit<Profile, "updated_at" | "created_at" | "plan">) => {
+      const { data, error } = await supabase.from("profiles").insert(profile);
+      if (error) throw new Error(error.message);
+      return data;
+    },
+    {
+      onSuccess: (res) => {
+        queryClient.setQueryData(["profile"], res[0]);
+      },
+      onError: (err: any) => {
+        alert(err.message);
+      },
+    }
+  );
   const updateProfileMutation = useMutation(
-    async (
-      profile: Omit<
-        Profile,
-        "updated_at" | "created_at" | "plan" | "login_madd"
-      >
-    ) => {
+    async (profile: Omit<Profile, "updated_at" | "created_at" | "plan">) => {
       const { data, error } = await supabase
         .from("profiles")
         .update(profile)
@@ -27,5 +37,5 @@ export const useMutateProfile = () => {
       },
     }
   );
-  return { updateProfileMutation };
+  return { createProfileMutation, updateProfileMutation };
 };
