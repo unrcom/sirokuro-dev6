@@ -235,15 +235,15 @@ const Profile: NextPage = () => {
     update({ ...editedProfile, year_of_birth: e.target.value });
   };
 
-  const kenHandleChange = (e) => {
+  const kenHandleChange = (e: SelectChangeEvent<string>) => {
     update({ ...editedProfile, zip: e.target.value });
   };
 
-  const genderHandleChange = (e) => {
+  const genderHandleChange = (e: SelectChangeEvent<string>) => {
     update({ ...editedProfile, gender: e.target.value });
   };
 
-  const jobHandleChange = (e) => {
+  const jobHandleChange = (e: SelectChangeEvent<string>) => {
     update({ ...editedProfile, job: e.target.value });
   };
 
