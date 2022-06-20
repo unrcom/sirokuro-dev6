@@ -61,9 +61,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (session) {
       if (dev) {
         console.log(session);
-        if (session.user) {
-          console.log(session.user.id);
-          console.log(session.user.email);
         }
       }
     }
