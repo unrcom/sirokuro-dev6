@@ -231,7 +231,7 @@ const Profile: NextPage = () => {
     { key: "999", value: "答えたくない" },
   ];
 
-  const yearHandleChange = (e) => {
+  const yearHandleChange = (e: SelectChangeEvent<string>) => {
     update({ ...editedProfile, year_of_birth: e.target.value });
   };
 
