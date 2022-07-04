@@ -1,6 +1,6 @@
 import create from "zustand";
 import { Session } from "@supabase/supabase-js";
-import { EditedProfile } from "../types";
+import { EditedProfile, EditedPost } from "../types";
 
 type State = {
   session: Session | null;
@@ -8,6 +8,9 @@ type State = {
   editedProfile: EditedProfile;
   updateEditedProfile: (payload: EditedProfile) => void;
   resetEditedProfile: () => void;
+  editedPost: EditedPost;
+  updateEditedPost: (payload: EditedPost) => void;
+  resetEditedPost: () => void;
 };
 const useStore = create<State>((set) => ({
   session: null,
@@ -57,6 +60,51 @@ const useStore = create<State>((set) => ({
         homepage: "",
         blog: "",
         gender: "",
+      },
+    }),
+  editedPost: {
+    id: "",
+    user_id: "",
+    title1: "",
+    title2: "",
+    stitle: "",
+    expire: null,
+    guide: "",
+    cat: "",
+    image_url: "",
+    started_at: null,
+    post_flg: "",
+  },
+  updateEditedPost: (payload) =>
+    set({
+      editedPost: {
+        id: payload.id,
+        user_id: payload.user_id,
+        title1: payload.title1,
+        title2: payload.title2,
+        stitle: payload.stitle,
+        expire: payload.expire,
+        guide: payload.guide,
+        cat: payload.cat,
+        image_url: payload.image_url,
+        started_at: payload.started_at,
+        post_flg: payload.post_flg,
+      },
+    }),
+  resetEditedPost: () =>
+    set({
+      editedPost: {
+        id: "",
+        user_id: "",
+        title1: "",
+        title2: "",
+        stitle: "",
+        expire: null,
+        guide: "",
+        cat: "",
+        image_url: "",
+        started_at: null,
+        post_flg: "",
       },
     }),
 }));

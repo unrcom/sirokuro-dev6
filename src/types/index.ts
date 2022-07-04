@@ -28,3 +28,32 @@ export type EditedProfile = {
   blog: string | undefined;
   gender: string | undefined;
 };
+export type Post = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  user_id: string | undefined;
+  title1: string | undefined;
+  title2: string | undefined;
+  stitle: string | undefined;
+  expire: Date | null;
+  guide: string | undefined;
+  cat: string | undefined;
+  image_url: string | undefined;
+  started_at: Date | null;
+  post_flg: string | undefined;
+  stoped_at: string | undefined;
+};
+export type EditedPost = {
+  id: string | undefined;
+  user_id: string | undefined;
+  title1: string | undefined;
+  title2: string | undefined;
+  stitle: string | undefined;
+  expire: Date | null;
+  guide: string | undefined;
+  cat: string | undefined;
+  image_url: string | undefined;
+  started_at: Date | null;
+  post_flg: string | undefined;
+};

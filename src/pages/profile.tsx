@@ -1,9 +1,7 @@
-import { useRef, useState } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { CameraIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
-import useStore from "../store";
 import { useQueryProfile } from "../hooks/useQueryProfile";
 import { useMutateProfile } from "../hooks/useMutateProfile";
 import { useDownloadUrl } from "../hooks/useDownloadUrl";
@@ -14,8 +12,9 @@ import { Layout } from "../components/Layout";
 import styles from "./profile.module.css";
 
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import useStore from "../store";
 
 const Profile: NextPage = () => {
   const session = useStore((state) => state.session);
@@ -121,112 +120,23 @@ const Profile: NextPage = () => {
   ];
 
   const jobs = [
-    { key: "000", value: "家事、家族支援" },
-    { key: "001", value: "放送関連" },
-    { key: "002", value: "医療関連" },
-    { key: "003", value: "美術・芸術関連" },
-    { key: "004", value: "インテリア関連" },
-    { key: "005", value: "飲食関係" },
-    { key: "007", value: "ウェブ関連" },
-    { key: "008", value: "接客関連" },
-    { key: "009", value: "宇宙関連" },
-    { key: "010", value: "占い関連" },
-    { key: "011", value: "運転・運行関連" },
-    { key: "012", value: "映画関連" },
-    { key: "013", value: "栄養士" },
-    { key: "014", value: "鉄道関連" },
-    { key: "016", value: "技術関連" },
-    { key: "017", value: "舞台関連" },
-    { key: "018", value: "メイド" },
-    { key: "019", value: "音楽関連" },
-    { key: "020", value: "会計関連" },
-    { key: "021", value: "評論関連" },
-    { key: "022", value: "外交官" },
-    { key: "023", value: "介護・福祉関連" },
-    { key: "024", value: "害虫駆除関連" },
-    { key: "025", value: "カウンセラー" },
-    { key: "026", value: "科学者" },
-    { key: "028", value: "学者" },
-    { key: "029", value: "鍛冶屋" },
-    { key: "031", value: "家政婦" },
-    { key: "032", value: "教育関連" },
-    { key: "033", value: "映像関連" },
-    { key: "035", value: "看守" },
-    { key: "036", value: "官僚" },
-    { key: "037", value: "機械工" },
-    { key: "039", value: "脚本家" },
-    { key: "040", value: "騎手" },
-    { key: "041", value: "気象予報士" },
-    { key: "043", value: "救急救命士" },
-    { key: "045", value: "銀行員" },
-    { key: "046", value: "クリーニング店員" },
-    { key: "047", value: "軍人" },
-    { key: "048", value: "経営者" },
-    { key: "049", value: "警察官" },
-    { key: "050", value: "警備員、ガードマン" },
-    { key: "051", value: "刑務官" },
-    { key: "053", value: "法曹関連" },
-    { key: "054", value: "建築関連" },
-    { key: "055", value: "建築士、建築家" },
-    { key: "056", value: "漁業関連" },
-    { key: "058", value: "公務員" },
-    { key: "059", value: "文筆関連" },
-    { key: "060", value: "コンサルタント" },
-    { key: "065", value: "オフィスワーカー" },
-    { key: "068", value: "司書、図書館員" },
-    { key: "069", value: "詩人" },
-    { key: "070", value: "服飾関連" },
-    { key: "071", value: "実業家" },
-    { key: "072", value: "執事" },
-    { key: "073", value: "事務員" },
-    { key: "075", value: "社会保険労務士" },
-    { key: "077", value: "修理工" },
-    { key: "078", value: "消防士" },
-    { key: "079", value: "書家、書道家" },
-    { key: "080", value: "新聞記者" },
-    { key: "081", value: "新聞配達員" },
-    { key: "082", value: "審判" },
-    { key: "083", value: "政治家" },
-    { key: "084", value: "整備士" },
-    { key: "085", value: "スタイリスト" },
-    { key: "086", value: "声優" },
-    { key: "087", value: "海運関連" },
-    { key: "088", value: "速記士" },
-    { key: "089", value: "税理士" },
-    { key: "090", value: "測量士" },
-    { key: "091", value: "葬儀関連" },
-    { key: "093", value: "タクシー運転手" },
-    { key: "094", value: "探検家" },
-    { key: "095", value: "探偵" },
-    { key: "096", value: "調教師" },
-    { key: "098", value: "調律師" },
-    { key: "099", value: "通訳" },
-    { key: "101", value: "電気工" },
-    { key: "102", value: "添乗員、ツアーコンダクター" },
-    { key: "103", value: "登山家" },
-    { key: "104", value: "床屋" },
-    { key: "105", value: "ナレーター" },
-    { key: "107", value: "園芸関連" },
-    { key: "108", value: "農業関連" },
-    { key: "109", value: "配管工" },
-    { key: "110", value: "俳優" },
-    { key: "111", value: "航空関連" },
-    { key: "113", value: "観光関連" },
-    { key: "114", value: "発明家" },
-    { key: "115", value: "秘書" },
-    { key: "116", value: "美容師" },
-    { key: "118", value: "システム開発系" },
-    { key: "119", value: "プロデューサー" },
-    { key: "121", value: "編集者" },
-    { key: "123", value: "保育士、保母" },
-    { key: "124", value: "報道関連" },
-    { key: "126", value: "翻訳家" },
-    { key: "127", value: "漫画家" },
-    { key: "128", value: "薬剤師" },
-    { key: "129", value: "郵便関連" },
-    { key: "131", value: "溶接工" },
-    { key: "132", value: "酪農家" },
-    { key: "135", value: "猟師" },
+    { key: "000", value: "無職・お仕事検討中" },
+    { key: "001", value: "無職・次のステージへの準備中" },
+    { key: "002", value: "無職・趣味に専念中" },
+    { key: "003", value: "無職・休養中" },
+    { key: "004", value: "無職・リタイア中" },
+    { key: "005", value: "無職・家族支援中" },
+    { key: "006", value: "無職・育児中" },
+    { key: "007", value: "無職・その他" },
+    { key: "008", value: "ボランティア" },
+    { key: "009", value: "学生" },
+    { key: "020", value: "会社員" },
+    { key: "021", value: "法人役員" },
+    { key: "022", value: "法人顧問、相談役" },
+    { key: "030", value: "個人事業主" },
+    { key: "040", value: "アルバイト、パート" },
+    { key: "050", value: "その他の従業員" },
+    { key: "060", value: "公務員" },
     { key: "998", value: "該当なし" },
     { key: "999", value: "答えたくない" },
   ];
@@ -250,123 +160,127 @@ const Profile: NextPage = () => {
   return (
     <>
       <Layout title="sirokuro.site">
-        <p className={styles.mb_4}>{profile?.username}</p>
-        {profile?.created_at && (
+        {session && profile?.created_at && (
           <p className={styles.my_1__text_sm}>
+            初回登録日時:{" "}
             {format(new Date(profile.created_at), "yyyy-MM-dd HH:mm:ss")}
           </p>
         )}
-        {profile?.updated_at && (
+        {session && profile?.updated_at && (
           <p className={styles.text_sm}>
+            最終更新日時:{" "}
             {format(new Date(profile.updated_at), "yyyy-MM-dd HH:mm:ss")}
           </p>
         )}
-        <p className={styles.mt_4}>ユーザ名</p>
-        <input
-          className={
-            styles.my_2__mx_2__rounded__border__border_gray_300__px_3__py_2__text_sm__focus_outline_none
-          }
-          type="text"
-          placeholder="Username"
-          value={editedProfile.username || ""}
-          onChange={(e) => {
-            if (e.target.value.length <= 12) {
-              update({ ...editedProfile, username: e.target.value });
-            } else {
-              alert("ユーザ名は1６文字以内で指定してください。");
+        {session && <p className={styles.mt_4}>ユーザ名</p>}
+        {session && (
+          <input
+            className={
+              styles.my_2__mx_2__rounded__border__border_gray_300__px_3__py_2__text_sm__focus_outline_none
             }
-          }}
-        />
-        <p>生まれ年（西暦）</p>
-        <Select
-          labelId="year-select-label"
-          id="year-select"
-          value={editedProfile.year_of_birth || ""}
-          label=""
-          onChange={(e) => yearHandleChange(e)}
-        >
-          <MenuItem key="1920" value="1920">
-            1920年以前
-          </MenuItem>
-          {years.map((val) => (
-            <MenuItem key={val} value={val}>
-              {val}
+            type="text"
+            placeholder="Username"
+            value={editedProfile.username || ""}
+            onChange={(e) => {
+              if (e.target.value.length <= 16) {
+                update({ ...editedProfile, username: e.target.value });
+              } else {
+                alert("ユーザ名は1６文字以内で指定してください。");
+              }
+            }}
+          />
+        )}
+        {session && <p>生まれ年（西暦）</p>}
+        {session && (
+          <Select
+            labelId="year-select-label"
+            id="year-select"
+            value={editedProfile.year_of_birth || ""}
+            label=""
+            onChange={(e) => yearHandleChange(e)}
+          >
+            <MenuItem key="1920" value="1920">
+              1920年以前
             </MenuItem>
-          ))}
-          <MenuItem key="9999" value="9999">
-            答えたくない
-          </MenuItem>
-        </Select>
-        <p>ご自宅の都道府県</p>
-        <Select
-          labelId="ken-select-label"
-          id="ken-select"
-          value={editedProfile.zip || ""}
-          label=""
-          onChange={(e) => kenHandleChange(e)}
-        >
-          {kens.map((obj) => (
-            <MenuItem key={obj.key} value={obj.value}>
-              {obj.value}
+            {years.map((val) => (
+              <MenuItem key={val} value={val}>
+                {val}
+              </MenuItem>
+            ))}
+            <MenuItem key="9999" value="9999">
+              答えたくない
             </MenuItem>
-          ))}
-        </Select>
-
-        <p>性別</p>
-        <Select
-          labelId="gender-select-label"
-          id="gender-select"
-          value={editedProfile.gender || ""}
-          label=""
-          onChange={(e) => genderHandleChange(e)}
-        >
-          <MenuItem key="M" value="男性">
-            男性
-          </MenuItem>
-          <MenuItem key="F" value="女性">
-            女性
-          </MenuItem>
-          <MenuItem key="N" value="答えたくない">
-            答えたくない
-          </MenuItem>
-        </Select>
-        <p>ご職業</p>
-        {/* <input
-          className={
-            styles.my_2__mx_2__rounded__border__border_gray_300__px_3__py_2__text_sm__focus_outline_none
-          }
-          type="text"
-          value={editedProfile.job || ""}
-          onChange={(e) => update({ ...editedProfile, job: e.target.value })}
-        /> */}
-        <Select
-          labelId="job-select-label"
-          id="job-select"
-          value={editedProfile.job || ""}
-          label=""
-          onChange={(e) => jobHandleChange(e)}
-        >
-          {jobs.map((obj) => (
-            <MenuItem key={obj.key} value={obj.value}>
-              {obj.value}
+          </Select>
+        )}
+        {session && <p>ご自宅の都道府県</p>}
+        {session && (
+          <Select
+            labelId="ken-select-label"
+            id="ken-select"
+            value={editedProfile.zip || ""}
+            label=""
+            onChange={(e) => kenHandleChange(e)}
+          >
+            {kens.map((obj) => (
+              <MenuItem key={obj.key} value={obj.value}>
+                {obj.value}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
+        {session && <p>性別</p>}
+        {session && (
+          <Select
+            labelId="gender-select-label"
+            id="gender-select"
+            value={editedProfile.gender || ""}
+            label=""
+            onChange={(e) => genderHandleChange(e)}
+          >
+            <MenuItem key="M" value="男性">
+              男性
             </MenuItem>
-          ))}
-        </Select>
-        <button
-          className={
-            styles.my_5__rounded__bg_indigo_600__px_3__py_2__text_sm__font_medium__text_white
-          }
-          // className={`my-5 rounded ${
-          //   updateProfileMutation.isLoading || !editedProfile.username
-          //     ? "bg-gray-400"
-          //     : "bg-indigo-600"
-          // } px-3 py-2 text-sm font-medium text-white`}
-          onClick={updateProfile}
-          disabled={updateProfileMutation.isLoading}
-        >
-          {updateProfileMutation.isLoading ? "Loading ..." : "Update"}
-        </button>
-        {avatarUrl && (
+            <MenuItem key="F" value="女性">
+              女性
+            </MenuItem>
+            <MenuItem key="N" value="答えたくない">
+              答えたくない
+            </MenuItem>
+          </Select>
+        )}
+        {session && <p>ご職業</p>}
+        {session && (
+          <Select
+            labelId="job-select-label"
+            id="job-select"
+            value={editedProfile.job || ""}
+            label=""
+            onChange={(e) => jobHandleChange(e)}
+          >
+            {jobs.map((obj) => (
+              <MenuItem key={obj.key} value={obj.value}>
+                {obj.value}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
+        {session && (
+          <button
+            className={
+              styles.my_5__rounded__bg_indigo_600__px_3__py_2__text_sm__font_medium__text_white
+            }
+            // className={`my-5 rounded ${
+            //   updateProfileMutation.isLoading || !editedProfile.username
+            //     ? "bg-gray-400"
+            //     : "bg-indigo-600"
+            // } px-3 py-2 text-sm font-medium text-white`}
+            onClick={updateProfile}
+            disabled={updateProfileMutation.isLoading}
+          >
+            {updateProfileMutation.isLoading ? "Loading ..." : "Update"}
+          </button>
+        )}
+        {session && avatarUrl && (
           <Image
             src={avatarUrl}
             alt="Avatar"
@@ -376,20 +290,23 @@ const Profile: NextPage = () => {
           />
         )}
         {isLoading && <Spinner />}
-        <div className={styles.flex__justify_center}>
-          <label htmlFor="avatar">
-            <CameraIcon
-              className={styles.my_3__h_7__w_7_cursor_pointer__text_gray_500}
+        {session && (
+          <div className={styles.flex__justify_center}>
+            <label htmlFor="avatar">
+              <CameraIcon
+                className={styles.my_3__h_7__w_7_cursor_pointer__text_gray_500}
+              />
+            </label>
+            <input
+              className={styles.hidden}
+              type="file"
+              id="avatar"
+              accept="image/*"
+              onChange={(e) => useMutateUploadAvatarImg.mutate(e)}
             />
-          </label>
-          <input
-            className={styles.hidden}
-            type="file"
-            id="avatar"
-            accept="image/*"
-            onChange={(e) => useMutateUploadAvatarImg.mutate(e)}
-          />
-        </div>
+          </div>
+        )}
+        {!session && <p>ログインしてください。</p>}
       </Layout>
     </>
   );

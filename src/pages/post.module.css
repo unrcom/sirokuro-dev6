@@ -1,0 +1,40 @@
+.mt_4 {
+  margin-top: 1rem;
+}
+.mt_4__mb_6 {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+.my_3__h_7__w_7_cursor_pointer__text_gray_500 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  height: 1.75rem;
+  width: 1.75rem;
+  cursor: pointer;
+  --tw-text-opacity: 1;
+  color: rgba(107, 114, 128, var(--tw-text-opacity));
+}
+.flex__justify_center {
+  display: flex;
+  justify-content: center;
+}
+.hidden {
+  display: none;
+}
+.my_5__rounded__bg_indigo_600__px_3__py_2__text_sm__font_medium__text_white {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  cursor: pointer;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}

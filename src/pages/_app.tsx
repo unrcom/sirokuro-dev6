@@ -57,10 +57,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     }
   } else {
-    setSession(supabase.auth.session());
-    if (session) {
-      if (dev) {
-        console.log(session);
+    if (supabase.auth.session()) {
+      setSession(supabase.auth.session());
+      if (session) {
+        if (dev) {
+          console.log(session);
+        }
       }
     }
   }
