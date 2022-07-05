@@ -1,5 +1,6 @@
 import { useState, FormEvent } from "react";
 import type { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { CameraIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
@@ -8,7 +9,8 @@ import { useMutatePost } from "../hooks/useMutatePost";
 import { useDownloadUrl } from "../hooks/useDownloadUrl";
 import { useUploadPostImg } from "../hooks/useUploadPostImg";
 import { Spinner } from "../components/Spinner";
-import { Layout } from "../components/Layout";
+import { Appdrawer } from "../components/Appdrawer";
+import { Footer } from "../components/Footer";
 
 import styles from "./post.module.css";
 
@@ -179,8 +181,13 @@ const Post: NextPage = () => {
   return (
     <>
       {logoutput("point00")}
-      <Layout title="好き嫌い投稿">
-        {session && <p>id: {id}</p>}
+      <Head>
+        <title>好き嫌い投稿</title>
+      </Head>
+      <header></header>
+      <Appdrawer />
+      <div className={styles.container}>
+        {/* {session && <p>id: {id}</p>} */}
         {logoutput("point01")}
         <form onSubmit={submitHandler}>
           {session && (
@@ -190,6 +197,7 @@ const Post: NextPage = () => {
               id="filled-required"
               label="一覧表示用タイトル (公開されます)"
               fullWidth
+              className={styles.mt_8}
               value={stitle || ""}
               onChange={(e) => stitleHandleChange(e)}
             />
@@ -327,7 +335,8 @@ const Post: NextPage = () => {
         </form>
 
         {!session && <p>ログインしてください。</p>}
-      </Layout>
+        <Footer />
+      </div>
     </>
   );
 };

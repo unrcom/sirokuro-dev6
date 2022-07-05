@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { CameraIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
@@ -7,12 +8,14 @@ import { useMutateProfile } from "../hooks/useMutateProfile";
 import { useDownloadUrl } from "../hooks/useDownloadUrl";
 import { useUploadAvatarImg } from "../hooks/useUploadAvatarImg";
 import { Spinner } from "../components/Spinner";
-import { Layout } from "../components/Layout";
+import { Appdrawer } from "../components/Appdrawer";
+import { Footer } from "../components/Footer";
 
 import styles from "./profile.module.css";
 
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Box from "@mui/material/Box";
 
 import useStore from "../store";
 
@@ -159,7 +162,14 @@ const Profile: NextPage = () => {
 
   return (
     <>
-      <Layout title="sirokuro.site">
+      <Head>
+        <title>プロフィール編集</title>
+      </Head>
+      <header></header>
+      {/* <Layout title="好き嫌い投稿"> */}
+      <Appdrawer />
+
+      <div className={styles.container}>
         {session && profile?.created_at && (
           <p className={styles.my_1__text_sm}>
             初回登録日時:{" "}
@@ -264,6 +274,38 @@ const Profile: NextPage = () => {
             ))}
           </Select>
         )}
+        {session && avatarUrl && (
+          <Box>
+            <Image
+              src={avatarUrl}
+              alt="Avatar"
+              className={styles.rounded_full}
+              width={150}
+              height={150}
+            />
+          </Box>
+        )}
+        {isLoading && <Spinner />}
+        {session && (
+          <Box>
+            <div className={styles.flex__justify_center}>
+              <label htmlFor="avatar">
+                <CameraIcon
+                  className={
+                    styles.my_3__h_7__w_7_cursor_pointer__text_gray_500
+                  }
+                />
+              </label>
+              <input
+                className={styles.hidden}
+                type="file"
+                id="avatar"
+                accept="image/*"
+                onChange={(e) => useMutateUploadAvatarImg.mutate(e)}
+              />
+            </div>
+          </Box>
+        )}
         {session && (
           <button
             className={
@@ -277,37 +319,14 @@ const Profile: NextPage = () => {
             onClick={updateProfile}
             disabled={updateProfileMutation.isLoading}
           >
-            {updateProfileMutation.isLoading ? "Loading ..." : "Update"}
+            {updateProfileMutation.isLoading
+              ? "Loading ..."
+              : "プロフィール更新"}
           </button>
         )}
-        {session && avatarUrl && (
-          <Image
-            src={avatarUrl}
-            alt="Avatar"
-            className={styles.rounded_full}
-            width={150}
-            height={150}
-          />
-        )}
-        {isLoading && <Spinner />}
-        {session && (
-          <div className={styles.flex__justify_center}>
-            <label htmlFor="avatar">
-              <CameraIcon
-                className={styles.my_3__h_7__w_7_cursor_pointer__text_gray_500}
-              />
-            </label>
-            <input
-              className={styles.hidden}
-              type="file"
-              id="avatar"
-              accept="image/*"
-              onChange={(e) => useMutateUploadAvatarImg.mutate(e)}
-            />
-          </div>
-        )}
         {!session && <p>ログインしてください。</p>}
-      </Layout>
+        <Footer />
+      </div>
     </>
   );
 };

@@ -1,7 +1,8 @@
 .LayoutMain {
   display: flex;
   width: 90vw;
-  flex: 1 1 0%;
+  flex: 1;
+  /* flex: 1 1 0%; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -75,9 +76,15 @@
   width: 85vw;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
 }
 /* <main className="flex w-screen flex-1 flex-col items-center justify-center"> */
+
+.main2 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
 
 .title {
   margin: 0;

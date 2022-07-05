@@ -1,11 +1,9 @@
-import React, { FC, ReactNode, useEffect } from "react";
-import Head from "next/head";
+import React, { FC, ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/supabase";
 
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -78,7 +76,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export const Layout: FC<Title> = ({ children, title = "sirokuro.site" }) => {
+export const Appdrawer: FC = () => {
   const user = supabase.auth.user();
   const { push, pathname } = useRouter();
 
@@ -108,10 +106,6 @@ export const Layout: FC<Title> = ({ children, title = "sirokuro.site" }) => {
     <>
       {/* <div className={styles.container}> */}
       {/* <Box sx={{ display: "flex" }}> */}
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <header></header>
       <AppBar position="fixed" color="inherit" open={open}>
         <Toolbar>
           <IconButton
@@ -215,12 +209,6 @@ export const Layout: FC<Title> = ({ children, title = "sirokuro.site" }) => {
           ))}
         </List>
       </Drawer>
-      {/* <Main className={styles.main}> */}
-      <Main className={styles.main2}>
-        {/* <DrawerHeader /> */}
-        {/* <Box className={styles.LayoutMain}>{children}</Box> */}
-        {children}
-      </Main>
       {/* </Box> */}
       <footer className={styles.footer}>
         {/* <Box component="footer" sx={{ p: 2, bgcolor: "black" }}> */}
