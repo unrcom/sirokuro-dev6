@@ -22,6 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
 
 import useStore from "../store";
 
@@ -190,6 +191,7 @@ const Post: NextPage = () => {
         {/* {session && <p>id: {id}</p>} */}
         {logoutput("point01")}
         <form onSubmit={submitHandler}>
+          {session && <div>　</div>}
           {session && (
             <TextField
               required
@@ -197,11 +199,11 @@ const Post: NextPage = () => {
               id="filled-required"
               label="一覧表示用タイトル (公開されます)"
               fullWidth
-              className={styles.mt_8}
               value={stitle || ""}
               onChange={(e) => stitleHandleChange(e)}
             />
           )}
+          {session && <div>　</div>}
           {session && (
             <TextField
               required
@@ -209,11 +211,11 @@ const Post: NextPage = () => {
               id="filled-required"
               label="タイトル・１ (公開されます)"
               fullWidth
-              className={styles.mt_4}
               value={title1 || ""}
               onChange={(e) => title1HandleChange(e)}
             />
           )}
+          {session && <div>　</div>}
           {session && (
             <TextField
               required
@@ -221,12 +223,12 @@ const Post: NextPage = () => {
               id="filled-required"
               label="タイトル・２ (公開されます)"
               fullWidth
-              className={styles.mt_4}
               value={title2 || ""}
               onChange={(e) => title2HandleChange(e)}
             />
           )}
           {logoutput("point02")}
+          {session && <div>　</div>}
           {session && (
             <TextField
               required
@@ -236,11 +238,11 @@ const Post: NextPage = () => {
               fullWidth
               multiline
               rows={3}
-              className={styles.mt_4__mb_6}
               value={guide || ""}
               onChange={(e) => guideHandleChange(e)}
             />
           )}
+          {session && <div>　</div>}
           {session && (
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
@@ -333,10 +335,9 @@ const Post: NextPage = () => {
             </button>
           )}
         </form>
-
-        {!session && <p>ログインしてください。</p>}
-        <Footer />
       </div>
+      {!session && <p>ログインしてください。</p>}
+      <Footer />
     </>
   );
 };

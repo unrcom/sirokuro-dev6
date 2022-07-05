@@ -20,7 +20,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 
-import styles from "./Layout.module.css";
+import styles from "./Footer.module.css";
 
 const thisyear = new Date().getFullYear();
 

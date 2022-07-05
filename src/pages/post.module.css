@@ -1,5 +1,8 @@
 .container {
   padding: 0 1rem;
+  /* display: flex; */
+  /* width: 90vw; */
+  /* flex: 1; */
 }
 .mt_8 {
   margin-top: 2rem;
