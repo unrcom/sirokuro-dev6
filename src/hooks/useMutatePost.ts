@@ -3,7 +3,7 @@ import useStore from "../store";
 import { supabase } from "../utils/supabase";
 import { Post, EditedPost } from "../types";
 
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 export const useMutatePost = () => {
   const reset = useStore((state) => state.resetEditedPost);
@@ -12,7 +12,7 @@ export const useMutatePost = () => {
       post: Omit<Post, "id" | "created_at" | "updated_at" | "stoped_at">
     ) => {
       const { data, error } = await supabase.from("posts").insert({
-        id: uuidv4(),
+        // id: uuidv4(),
         user_id: post.user_id,
         title1: post.title1,
         title2: post.title2,
@@ -28,9 +28,9 @@ export const useMutatePost = () => {
       return data;
     },
     {
-      onSuccess: () => {
-        reset();
-      },
+      // onSuccess: () => {
+      //   reset();
+      // },
       onError: (err: any) => {
         alert(err.message);
         // reset();
@@ -58,9 +58,9 @@ export const useMutatePost = () => {
       return data;
     },
     {
-      onSuccess: () => {
-        reset();
-      },
+      // onSuccess: () => {
+      //   reset();
+      // },
       onError: (err: any) => {
         alert(err.message);
         // reset();
@@ -77,9 +77,9 @@ export const useMutatePost = () => {
       return data;
     },
     {
-      onSuccess: () => {
-        reset();
-      },
+      // onSuccess: () => {
+      //   reset();
+      // },
       onError: (err: any) => {
         alert(err.message);
         // reset();

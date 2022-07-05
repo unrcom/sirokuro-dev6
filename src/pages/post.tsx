@@ -35,10 +35,7 @@ const Post: NextPage = () => {
     "posts"
   );
 
-  const [id, setId] = useState<string | undefined>(
-    // "b855a98c-ab07-4209-bc9d-bb0b4e5dbcbd"
-    ""
-  );
+  const [id, setId] = useState<string | undefined>("");
   //   update({ ...editedPost, id: id });
   const [title1, setTitle1] = useState<string | undefined>(
     "私は sirokuro.site が大好き！"
@@ -48,11 +45,11 @@ const Post: NextPage = () => {
     "sirokuro.site について"
   );
   const [guide, setGuide] = useState<string | undefined>(
-    "自由に記述してください\n質問の詳細や背景:\n好き(嫌い)な理由:\n画像の説明:\n一番聞きたいこと:"
+    "自由に記述してください\n(質問の詳細や背景、好き(嫌い)な理由、画像の説明、一番聞きたいこととか)"
   );
-  const [started_at, setStarted_at] = useState<Date | null>(new Date());
-  const [expire, setExpire] = useState<Date | null>(new Date());
-  const [post_flg, setPost_flg] = useState<string | undefined>("0");
+  const [started_at, setStarted_at] = useState<Date | null>(null);
+  const [expire, setExpire] = useState<Date | null>(null);
+  const [post_flg, setPost_flg] = useState<string | undefined>("");
   const [image_url, setImage_url] = useState<string | undefined>("");
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -64,13 +61,13 @@ const Post: NextPage = () => {
       if (session.user) {
         if (session.user.id) {
           if (editedPost.stitle === "") {
-            alert("管理用タイトルを指定してください。");
+            alert("一覧表示用タイトルを指定してください。");
           } else if (editedPost.title1 === "") {
             alert("タイトル１を指定してください。");
           } else if (editedPost.title2 === "") {
             alert("タイトル２を指定してください。");
           } else if (editedPost.guide === "") {
-            alert("メインテキストを指定してください。");
+            alert("ガイドテキストを指定してください。");
           } else if (!editedPost.started_at) {
             alert("掲載開始日を指定してください。");
           } else if (!editedPost.expire) {
@@ -78,8 +75,9 @@ const Post: NextPage = () => {
           } else if (editedPost.post_flg === "") {
             alert("掲載ステータスを指定してください。");
           } else {
+            let rtn;
             if (editedPost.id === "") {
-              await createPostMutation.mutateAsync({
+              rtn = await createPostMutation.mutateAsync({
                 user_id: session?.user?.id,
                 title1: editedPost.title1,
                 title2: editedPost.title2,
@@ -92,7 +90,7 @@ const Post: NextPage = () => {
                 post_flg: editedPost.post_flg,
               });
             } else {
-              await updatePostMutation.mutateAsync({
+              rtn = await updatePostMutation.mutateAsync({
                 id: editedPost.id,
                 user_id: session?.user?.id,
                 title1: editedPost.title1,
@@ -106,12 +104,15 @@ const Post: NextPage = () => {
                 post_flg: editedPost.post_flg,
               });
             }
-            setTitle1(editedPost.title1);
-            setTitle2(editedPost.title2);
-            setStitle(editedPost.stitle);
-            setExpire(editedPost.expire);
-            setGuide(editedPost.guide);
-            setStarted_at(editedPost.started_at);
+            console.log(rtn);
+            console.log(editedPost);
+            setId(rtn[0].id);
+            update({ ...editedPost, id: rtn[0].id });
+            // setTitle2(editedPost.title2);
+            // setStitle(editedPost.stitle);
+            // setExpire(editedPost.expire);
+            // setGuide(editedPost.guide);
+            // setStarted_at(editedPost.started_at);
           }
         }
       }
@@ -180,18 +181,6 @@ const Post: NextPage = () => {
       {logoutput("point00")}
       <Layout title="好き嫌い投稿">
         {session && <p>id: {id}</p>}
-        {session && post?.created_at && (
-          <p className={styles.my_1__text_sm}>
-            初回登録日時:{" "}
-            {format(new Date(post.created_at), "yyyy-MM-dd HH:mm:ss")}
-          </p>
-        )}
-        {session && post?.updated_at && (
-          <p className={styles.text_sm}>
-            最終更新日時:{" "}
-            {format(new Date(post.updated_at), "yyyy-MM-dd HH:mm:ss")}
-          </p>
-        )}
         {logoutput("point01")}
         <form onSubmit={submitHandler}>
           {session && (
@@ -199,7 +188,7 @@ const Post: NextPage = () => {
               required
               variant="filled"
               id="filled-required"
-              label="管理用タイトル (あなたの投稿ページのみに表示されます)"
+              label="一覧表示用タイトル (公開されます)"
               fullWidth
               value={stitle || ""}
               onChange={(e) => stitleHandleChange(e)}
@@ -235,10 +224,10 @@ const Post: NextPage = () => {
               required
               variant="filled"
               id="filled-required"
-              label="メインテキスト (公開されます)"
+              label="ガイドテキスト (公開されます)"
               fullWidth
               multiline
-              rows={5}
+              rows={3}
               className={styles.mt_4__mb_6}
               value={guide || ""}
               onChange={(e) => guideHandleChange(e)}
@@ -336,6 +325,7 @@ const Post: NextPage = () => {
             </button>
           )}
         </form>
+
         {!session && <p>ログインしてください。</p>}
       </Layout>
     </>
