@@ -27,8 +27,8 @@ const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const dev = true;
-  // const dev = false;
+  // const dev = true;
+  const dev = false;
 
   const { push, pathname } = useRouter();
 

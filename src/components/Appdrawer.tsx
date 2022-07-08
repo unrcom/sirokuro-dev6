@@ -94,12 +94,13 @@ export const Appdrawer: FC = () => {
   const thisyear = new Date().getFullYear();
 
   const Contents = [
+    { name: "sirokuroつける", anchor: "/sirokuro" },
     { name: "好き嫌いを投稿する", anchor: "/post" },
     { name: "対決を投稿する", anchor: "/taiketsu" },
-    { name: "白黒サイトについて", anchor: "/about" },
+    { name: "sirokuro.siteについて", anchor: "/about" },
     { name: "よくある質問", anchor: "/faq" },
     { name: "プロフィールの編集", anchor: "/profile" },
-    { name: "カテゴリーを追加する [＋]", anchor: "/cat" },
+    // { name: "カテゴリーを追加する [＋]", anchor: "/cat" },
   ];
 
   return (
@@ -171,34 +172,34 @@ export const Appdrawer: FC = () => {
             </ListItemButton>
           ))}
         </List>
-        <Divider className="Menu" />
+        {/* <Divider className="Menu" /> */}
         <List>
           {[
-            "ほしい？",
-            "並ぶ？",
-            "お取り寄せ",
-            "手に入らない",
-            "人物",
-            "カルチャー",
-            "動物",
-            "アート",
-            "エンタメ",
-            "場面",
-            "場所",
-            "科学",
-            "IT",
-            "モノ",
-            "フード",
-            "サービス",
-            "SNS",
-            "企業",
-            "投資",
-            "広告",
-            "本",
-            "ゲーム",
-            "趣味",
-            "ヘルスケア",
-            "ギャンブル",
+            // "ほしい？",
+            // "並ぶ？",
+            // "お取り寄せ",
+            // "手に入らない",
+            // "人物",
+            // "カルチャー",
+            // "動物",
+            // "アート",
+            // "エンタメ",
+            // "場面",
+            // "場所",
+            // "科学",
+            // "IT",
+            // "モノ",
+            // "フード",
+            // "サービス",
+            // "SNS",
+            // "企業",
+            // "投資",
+            // "広告",
+            // "本",
+            // "ゲーム",
+            // "趣味",
+            // "ヘルスケア",
+            // "ギャンブル",
           ].map((text, index) => (
             //   <ListItem button key={text} className={styles.Bgblack}>
             <ListItem button key={text}>

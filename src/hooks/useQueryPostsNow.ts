@@ -3,15 +3,18 @@ import { supabase } from "../utils/supabase";
 import useStore from "../store";
 import { Post } from "../types/";
 
-export const useQueryPosts = () => {
+export const useQueryPostsNow = () => {
   const session = useStore((state) => state.session);
+  const now = new Date();
+  const str_now = JSON.parse(JSON.stringify(now));
   const getPosts = async () => {
     const { data, error } = await supabase
       .from("posts")
       .select("*")
-      .eq("user_id", session?.user?.id)
-      .order("created_at", { ascending: false });
-
+      .eq("post_flg", "1")
+      .lt("started_at", str_now)
+      .gt("expire", str_now)
+      .order("started_at", { ascending: false });
     if (error) {
       throw new Error(error.message);
     }

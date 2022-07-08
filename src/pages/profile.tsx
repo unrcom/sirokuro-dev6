@@ -30,6 +30,7 @@ const Profile: NextPage = () => {
     editedProfile.avatar_url,
     "avatars"
   );
+  console.log(avatarUrl);
 
   const updateProfile = () => {
     if (session) {
@@ -278,6 +279,7 @@ const Profile: NextPage = () => {
           <Box>
             <Image
               src={avatarUrl}
+              // src="0.5566105857482775.JPG"
               alt="Avatar"
               className={styles.rounded_full}
               width={150}

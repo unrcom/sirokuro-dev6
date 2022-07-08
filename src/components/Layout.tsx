@@ -96,12 +96,13 @@ export const Layout: FC<Title> = ({ children, title = "sirokuro.site" }) => {
   const thisyear = new Date().getFullYear();
 
   const Contents = [
+    { name: "sirokuroつける", anchor: "/sirokuro" },
     { name: "好き嫌いを投稿する", anchor: "/post" },
     { name: "対決を投稿する", anchor: "/taiketsu" },
     { name: "白黒サイトについて", anchor: "/about" },
     { name: "よくある質問", anchor: "/faq" },
     { name: "プロフィールの編集", anchor: "/profile" },
-    { name: "カテゴリーを追加する [＋]", anchor: "/cat" },
+    // { name: "カテゴリーを追加する [＋]", anchor: "/cat" },
   ];
 
   return (
