@@ -11,17 +11,8 @@ import { Footer } from "../components/Footer";
 import { Banner } from "../components/Banner";
 
 import useStore from "../store";
-import { Post } from "../types";
 
 import styles from "./sirokuro.module.css";
-
-import Box from "@mui/material/Box";
-import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
-import { Typography } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Paper } from "@mui/material";
-import { Card } from "@mui/material";
 
 const Sirokuro: NextPage = () => {
   const session = useStore((state) => state.session);
