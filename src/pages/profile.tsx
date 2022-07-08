@@ -171,18 +171,6 @@ const Profile: NextPage = () => {
       <Appdrawer />
 
       <div className={styles.container}>
-        {session && profile?.created_at && (
-          <p className={styles.my_1__text_sm}>
-            初回登録日時:{" "}
-            {format(new Date(profile.created_at), "yyyy-MM-dd HH:mm:ss")}
-          </p>
-        )}
-        {session && profile?.updated_at && (
-          <p className={styles.text_sm}>
-            最終更新日時:{" "}
-            {format(new Date(profile.updated_at), "yyyy-MM-dd HH:mm:ss")}
-          </p>
-        )}
         {session && <p className={styles.mt_4}>ユーザ名</p>}
         {session && (
           <input
@@ -326,6 +314,19 @@ const Profile: NextPage = () => {
               : "プロフィール更新"}
           </button>
         )}
+        {session && profile?.created_at && (
+          <p className={styles.my_1__text_sm}>
+            初回登録日時:{" "}
+            {format(new Date(profile.created_at), "yyyy-MM-dd HH:mm:ss")}
+          </p>
+        )}
+        {session && profile?.updated_at && (
+          <p className={styles.text_sm}>
+            最終更新日時:{" "}
+            {format(new Date(profile.updated_at), "yyyy-MM-dd HH:mm:ss")}
+          </p>
+        )}
+
         {!session && <p>ログインしてください。</p>}
         <Footer />
       </div>

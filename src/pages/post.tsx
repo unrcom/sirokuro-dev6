@@ -283,6 +283,20 @@ const Post: NextPage = () => {
       <header></header>
       <Appdrawer />
       <div className={styles.container}>
+        {session && (
+          <ul data-testid="ul-post" className="my-5">
+            <li className="w-80" key="dumy">
+              <Button
+                variant="text"
+                className={styles.mouse_pointer}
+                onClick={() => postNewHandleChange()}
+              >
+                新規に投稿する
+              </Button>
+            </li>
+          </ul>
+        )}
+
         {/* {session && <p>id: {id}</p>} */}
         {/* {logoutput("point01")} */}
         <form onSubmit={submitHandler}>
@@ -433,15 +447,6 @@ const Post: NextPage = () => {
         </form>
         {session && (
           <ul data-testid="ul-post" className="my-5">
-            <li className="w-80" key="dumy">
-              <Button
-                variant="text"
-                className={styles.mouse_pointer}
-                onClick={() => postNewHandleChange()}
-              >
-                新規に投稿する
-              </Button>
-            </li>
             {posts_current?.map((post) => (
               <li className="w-80" key={post.id}>
                 <Button

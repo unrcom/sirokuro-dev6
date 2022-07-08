@@ -46,7 +46,7 @@ const Home: NextPage = () => {
             disableOnInteraction: true,
             waitForTransition: false,
           }}
-          loop={true}
+          // loop={true}
           // loopAdditionalSlides={1}
           speed={500}
         >
