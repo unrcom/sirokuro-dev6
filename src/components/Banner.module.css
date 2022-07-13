@@ -1,27 +1,26 @@
 .Banner {
-  height: 560px;
+  height: 720px;
   position: relative;
 }
-.Banner .BannerGrid {
-  height: 100%;
-  position: relative;
+.BannerGrid {
+  overflow: hidden;
+  padding: 20px 0;
 }
 .Content {
   text-overflow: ellipsis;
   position: relative;
   /* position: absolute; */
-  top: 20%;
-  left: 10%;
+  /* top: 20%; */
+  /* left: 10%; */
   bottom: 0;
   color: black;
   background-color: white;
-  opacity: 0.6;
-  width: 100%;
-  height: 50%;
-  /* height: 100%; */
+  opacity: 0.8;
+  /* width: 100%;
+  height: 100%; */
   cursor: pointer;
-  padding: 30px;
-  transition: 300ms;
+  /* padding: 30px; */
+  /* transition: 300ms; */
   /* margin: auto; */
 }
 .Content .ViewButton {
@@ -46,7 +45,7 @@
 }
 .Content .Caption {
   margin-top: 10px;
-  font-size: 24px;
+  /* font-size: 24px; */
 }
 .Content .ViewButton {
   margin-top: 40px;
@@ -57,17 +56,15 @@
   transition: 200ms;
 }
 .Media {
-  text-overflow: ellipsis;
-  position: absolute;
-  bottom: 0;
+  position: relative;
   padding: 15px;
   background-color: white;
   color: black;
-  opacity: 0.6;
-  width: 100%;
-  height: 100%;
+  width: 85%;
   font-size: 36px;
   font-weight: 200;
-  transition: 300ms;
   cursor: pointer;
+  max-height: 720px;
+  /* min-height: 400px; */
+  /* max-width: 720px; */
 }

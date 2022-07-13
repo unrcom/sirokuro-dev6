@@ -45,8 +45,9 @@ const Sirokuro: NextPage = () => {
             delay: 5000,
             disableOnInteraction: true,
             waitForTransition: false,
+            stopOnLastSlide: true,
           }}
-          loop={true}
+          // loop={true}
           // loopAdditionalSlides={1}
           speed={500}
         >

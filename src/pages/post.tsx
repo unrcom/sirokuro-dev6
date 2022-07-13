@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -39,16 +39,10 @@ const Post: NextPage = () => {
 
   const [id, setId] = useState<string | undefined>("");
   //   update({ ...editedPost, id: id });
-  const [title1, setTitle1] = useState<string | undefined>(
-    "私は sirokuro.site が大好き！"
-  );
-  const [title2, setTitle2] = useState<string | undefined>("あなたはどっち？");
-  const [stitle, setStitle] = useState<string | undefined>(
-    "sirokuro.site について"
-  );
-  const [guide, setGuide] = useState<string | undefined>(
-    "自由に記述してください\n(質問の詳細や背景、好き(嫌い)な理由、画像の説明、一番聞きたいこととか)"
-  );
+  const [title1, setTitle1] = useState<string | undefined>("");
+  const [title2, setTitle2] = useState<string | undefined>("");
+  const [stitle, setStitle] = useState<string | undefined>("");
+  const [guide, setGuide] = useState<string | undefined>("");
   const [started_at, setStarted_at] = useState<Date | null>(null);
   const [expire, setExpire] = useState<Date | null>(null);
   const [post_flg, setPost_flg] = useState<string | undefined>("");
@@ -283,30 +277,17 @@ const Post: NextPage = () => {
       <header></header>
       <Appdrawer />
       <div className={styles.container}>
-        {session && (
-          <ul data-testid="ul-post" className="my-5">
-            <li className="w-80" key="dumy">
-              <Button
-                variant="text"
-                className={styles.mouse_pointer}
-                onClick={() => postNewHandleChange()}
-              >
-                新規に投稿する
-              </Button>
-            </li>
-          </ul>
-        )}
-
         {/* {session && <p>id: {id}</p>} */}
         {/* {logoutput("point01")} */}
         <form onSubmit={submitHandler}>
+          {session && <div>　</div>}
           {session && <div>　</div>}
           {session && (
             <TextField
               required
               variant="filled"
               id="filled-required"
-              label="一覧表示用タイトル (公開されます)"
+              label="一覧表示用タイトル (ex.「sirokuro.site について」)"
               fullWidth
               value={stitle || ""}
               onChange={(e) => stitleHandleChange(e)}
@@ -318,7 +299,7 @@ const Post: NextPage = () => {
               required
               variant="filled"
               id="filled-required"
-              label="タイトル・１ (公開されます)"
+              label="タイトル・１ (ex.「私は sirokuro.site が大好き！」)"
               fullWidth
               value={title1 || ""}
               onChange={(e) => title1HandleChange(e)}
@@ -330,7 +311,7 @@ const Post: NextPage = () => {
               required
               variant="filled"
               id="filled-required"
-              label="タイトル・２ (公開されます)"
+              label="タイトル・２ (ex.「あなたはどっち？」)"
               fullWidth
               value={title2 || ""}
               onChange={(e) => title2HandleChange(e)}
@@ -343,7 +324,7 @@ const Post: NextPage = () => {
               required
               variant="filled"
               id="filled-required"
-              label="ガイドテキスト (公開されます)"
+              label="ガイドテキスト (PO考え中)"
               fullWidth
               multiline
               rows={3}
@@ -386,13 +367,13 @@ const Post: NextPage = () => {
                 onChange={(e) => post_flgHandleChange(e)}
               >
                 <MenuItem key="0" value="0">
-                  準備中
+                  準備中 (掲載されません)
                 </MenuItem>
                 <MenuItem key="1" value="1">
-                  掲載待ち
+                  掲載待ち (掲載されます)
                 </MenuItem>
                 <MenuItem key="8" value="8">
-                  掲載中止
+                  掲載中止 (掲載されません)
                 </MenuItem>
               </Select>
             </FormControl>

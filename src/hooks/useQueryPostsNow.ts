@@ -7,7 +7,7 @@ export const useQueryPostsNow = () => {
   const session = useStore((state) => state.session);
   const now = new Date();
   const str_now = JSON.parse(JSON.stringify(now));
-  const getPosts = async () => {
+  const getPostsnow = async () => {
     const { data, error } = await supabase
       .from("posts")
       .select("*")
@@ -21,8 +21,8 @@ export const useQueryPostsNow = () => {
     return data;
   };
   return useQuery<Post[], Error>({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+    queryKey: ["postsnow"],
+    queryFn: getPostsnow,
     staleTime: Infinity,
   });
 };

@@ -18,8 +18,8 @@ a {
 .swiper-button-next,
 .swiper-button-prev {
   --swiper-navigation-color: #000000;
-  width: calc(var(--swiper-navigation-size) / 44 * 27);
-  height: calc(var(--swiper-navigation-size) / 1);
+  width: calc(var(--swiper-navigation-size) / 44 * 27 / 2);
+  height: calc(var(--swiper-navigation-size) / 1 / 2);
 }
 
 .swiper-pagination {

@@ -57,3 +57,25 @@ export type EditedPost = {
   started_at: Date | null;
   post_flg: string | undefined;
 };
+export type Comment = {
+  id: string;
+  suki: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  username: string;
+  image_url: string | undefined;
+  text: string | undefined;
+  delf: string;
+};
+export type Reply = {
+  id: string;
+  created_at: string;
+  cuser_id: string;
+  ruser_id: string;
+  updated_at: string;
+  username: string;
+  image_url: string | undefined;
+  comment: string | undefined;
+  delf: string;
+};
