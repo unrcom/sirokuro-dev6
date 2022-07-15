@@ -30,9 +30,10 @@ export const useMutatePost = () => {
       return data;
     },
     {
-      // onSuccess: () => {
-      //   reset();
-      // },
+      onSuccess: () => {
+        alert("新規投稿が登録されました");
+        // reset();
+      },
       onError: (err: any) => {
         alert(err.message);
         // reset();
@@ -62,9 +63,10 @@ export const useMutatePost = () => {
       return data;
     },
     {
-      // onSuccess: () => {
-      //   reset();
-      // },
+      onSuccess: () => {
+        alert("投稿が更新されました");
+        // reset();
+      },
       onError: (err: any) => {
         alert(err.message);
         // reset();
