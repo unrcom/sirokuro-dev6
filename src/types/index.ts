@@ -43,7 +43,10 @@ export type Post = {
   started_at: Date | null;
   post_flg: string | undefined;
   stoped_at: string | undefined;
+  username: string | undefined;
+  avatar_url: string | undefined;
 };
+export type Posts = { posts: Post[] };
 export type EditedPost = {
   id: string | undefined;
   user_id: string | undefined;
@@ -56,6 +59,8 @@ export type EditedPost = {
   image_url: string | undefined;
   started_at: Date | null;
   post_flg: string | undefined;
+  username: string | undefined;
+  avatar_url: string | undefined;
 };
 export type Comment = {
   id: string;

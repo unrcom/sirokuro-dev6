@@ -17,6 +17,8 @@ export type Post = {
   started_at: string | undefined;
   post_flg: string | undefined;
   stoped_at: string | undefined;
+  username: string | undefined;
+  avatar_url: string | undefined;
 };
 
 export const useQueryPost = (id: string | string[] | undefined) => {

@@ -23,6 +23,8 @@ export const useMutatePost = () => {
         image_url: post.image_url,
         started_at: post.started_at,
         post_flg: post.post_flg,
+        username: post.username,
+        avatar_url: post.avatar_url,
       });
       if (error) throw new Error(error.message);
       return data;
@@ -52,6 +54,8 @@ export const useMutatePost = () => {
           image_url: post.image_url,
           started_at: post.started_at,
           post_flg: post.post_flg,
+          username: post.username,
+          avatar_url: post.avatar_url,
         })
         .eq("id", post.id);
       if (error) throw new Error(error.message);

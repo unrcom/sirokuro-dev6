@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 
 type Props = {
   post: Post;
@@ -26,83 +26,63 @@ export const Banner: FC<Props> = ({ post }) => {
     "posts"
   );
 
-  const siroAlt = "好きにコメントする!";
-  const kuroAlt = "嫌いにコメントする!";
   const siroId = post.id + "_siro";
   const kuroId = post.id + "_kuro";
-  const postid = post.id;
-
-  // const handleChange = () => {
-  //   console.log("handleChenge");
-  // };
 
   const content = (
     <Link href={{ pathname: `/sirokurod/[id]`, query: { id: post.id } }}>
-      <Grid item xs={12} sm={7} key={post.id}>
+      <Grid item key={post.id} xs={12} sm={6}>
+        {/* <Grid item key={post.id} xs={6}> */}
         {/* <CardContent className={styles.Content}> */}
-        <CardContent>
-          <CardMedia
-            component="img"
-            className={styles.Media}
-            image={postImgUrl_rtn}
-            alt={post.stitle}
-            // onClick={() => handleChange()}
-          >
-            {/* <Typography className="Caption">{post.stitle}</Typography> */}
-          </CardMedia>
-        </CardContent>
+        <Paper className={styles.Green} elevation={0}>
+          <CardContent>
+            <CardMedia
+              component="img"
+              className={styles.Media}
+              image={postImgUrl_rtn}
+              alt={post.stitle}
+            ></CardMedia>
+          </CardContent>
+        </Paper>
       </Grid>
     </Link>
   );
 
   const siro = (
-    // <Grid item xs={12} sm={3} key={siroId} className={styles.Content}>
-    <Grid
-      item
-      xs={12}
-      sm={3}
-      key={siroId}
-      // direction="column"
-      // alignItems="center"
-      // justifyContent="center"
-    >
+    <Grid item key={siroId} xs={12} sm={3}>
+      {/* <Grid item key={siroId} xs={3}> */}
       {/* <CardContent className={styles.Content}> */}
-      <CardContent>
-        {/* <Typography className={styles.Caption}>{post.title1}</Typography> */}
-        <Typography
-          // alignItems="center"
-          // justifyContent="center"
-          align="right"
-          variant="body1"
-        >
-          {post.title1}
-        </Typography>
-        {/* <Button variant="outlined" className={styles.ViewButton}>
-          好き！
-        </Button> */}
-      </CardContent>
+      <Paper className={styles.Red} elevation={0}>
+        <CardContent>
+          <Typography
+            // alignItems="center"
+            // justifyContent="center"
+            align="right"
+            variant="body1"
+            className={styles.Orange}
+          >
+            {post.title1}
+          </Typography>
+        </CardContent>
+      </Paper>
     </Grid>
   );
 
   const kuro = (
-    // <Grid item xs={12} sm={2} key={kuroId} className={styles.Content}>
     <Grid
       item
+      // xs={3}
       xs={12}
-      sm={2}
-      key={siroId}
-      // direction="column"
-      // alignItems="center"
-      // justifyContent="center"
+      sm={3}
+      key={kuroId}
     >
-      <CardContent className={styles.Content}>
-        <Typography align="left" variant="body1">
-          {post.title2}
-        </Typography>
-        {/* <Button variant="outlined" className={styles.ViewButton}>
-          嫌い orz
-        </Button> */}
-      </CardContent>
+      <Paper className={styles.Red} elevation={0}>
+        <CardContent className={styles.Content}>
+          <Typography align="left" variant="body1" className={styles.Orange}>
+            {post.title2}
+          </Typography>
+        </CardContent>
+      </Paper>
     </Grid>
   );
 
@@ -111,10 +91,12 @@ export const Banner: FC<Props> = ({ post }) => {
   items.push(kuro);
 
   return (
-    <Card raised className={styles.Banner}>
-      <Grid container spacing={0} className={styles.BannerGrid}>
-        {items}
-      </Grid>
-    </Card>
+    <Paper className={styles.Redf} elevation={0}>
+      <Card raised className={styles.Banner}>
+        <Grid container spacing={0} className={styles.BannerGrid}>
+          {items}
+        </Grid>
+      </Card>
+    </Paper>
   );
 };

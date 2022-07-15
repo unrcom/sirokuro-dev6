@@ -1,11 +1,15 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useState, FormEvent, FC, useEffect } from "react";
-import { ShieldCheckIcon } from "@heroicons/react/solid";
-import { Layout } from "../components/Layout";
+import type { NextPage } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { supabase } from "../utils/supabase";
 
 import { useMutateAuth } from "../hooks/useMutateAuth";
-import { supabase } from "../utils/supabase";
+import { Appdrawer } from "../components/Appdrawer";
+import { Footer } from "../components/Footer";
+
+import { ShieldCheckIcon } from "@heroicons/react/solid";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -63,16 +67,19 @@ const Auth: NextPage = () => {
 
   return (
     <>
-      {user ? (
-        <Layout title="Auth">
-          <form onSubmit={signOut}>
+      <Head>
+        <title>ユーザ認証</title>
+      </Head>
+      <header></header>
+      <Appdrawer />
+      <div className={styles.container}>
+        {user ? (
+          <form onSubmit={signOut} className={styles.auth__root}>
             <button type="submit" className={styles.SubmitButton}>
               ログアウト
             </button>
           </form>
-        </Layout>
-      ) : (
-        <Layout title="Auth">
+        ) : (
           <form onSubmit={handleSubmit} className={styles.auth__root}>
             <Typography align="center" variant="h5">
               {isLogin ? "ログイン" : "ユーザ登録"}
@@ -118,8 +125,9 @@ const Auth: NextPage = () => {
               </span>
             </div>
           </form>
-        </Layout>
-      )}
+        )}
+      </div>
+      <Footer />
     </>
   );
 };

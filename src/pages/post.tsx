@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { CameraIcon } from "@heroicons/react/solid";
 import { useQueryPosts } from "../hooks/useQueryPosts";
+import { useQueryProfile } from "../hooks/useQueryProfile";
 import { useMutatePost } from "../hooks/useMutatePost";
 import { useDownloadUrl } from "../hooks/useDownloadUrl";
 import { useUploadPostImg } from "../hooks/useUploadPostImg";
@@ -29,6 +30,7 @@ import { Post } from "../types";
 const Post: NextPage = () => {
   const session = useStore((state) => state.session);
   const editedPost = useStore((state) => state.editedPost);
+  const { data: profile } = useQueryProfile();
   const update = useStore((state) => state.updateEditedPost);
   const { updatePostMutation, createPostMutation } = useMutatePost();
   const { useMutateUploadPostImg } = useUploadPostImg();
@@ -103,6 +105,8 @@ const Post: NextPage = () => {
                 image_url: postImgUrl_rtn,
                 started_at: started_at,
                 post_flg: post_flg,
+                username: profile?.username,
+                avatar_url: profile?.avatar_url,
               });
               post_edited = {
                 id: rtn[0].id,
@@ -119,6 +123,8 @@ const Post: NextPage = () => {
                 started_at: rtn[0].started_at,
                 post_flg: rtn[0].post_flg,
                 stoped_at: rtn[0].stoped_at,
+                username: profile?.username,
+                avatar_url: profile?.avatar_url,
               };
               posts_current?.unshift(post_edited);
             } else {
@@ -134,6 +140,8 @@ const Post: NextPage = () => {
                 image_url: editedPost.image_url,
                 started_at: started_at,
                 post_flg: post_flg,
+                username: profile?.username,
+                avatar_url: profile?.avatar_url,
               });
               let posts_current_pos = posts_current?.find(
                 (unr) => unr.id === id

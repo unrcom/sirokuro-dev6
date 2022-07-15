@@ -74,6 +74,8 @@ const useStore = create<State>((set) => ({
     image_url: "",
     started_at: null,
     post_flg: "",
+    username: "",
+    avatar_url: "",
   },
   updateEditedPost: (payload) =>
     set({
@@ -89,6 +91,8 @@ const useStore = create<State>((set) => ({
         image_url: payload.image_url,
         started_at: payload.started_at,
         post_flg: payload.post_flg,
+        username: payload.username,
+        avatar_url: payload.avatar_url,
       },
     }),
   resetEditedPost: () =>
@@ -105,6 +109,8 @@ const useStore = create<State>((set) => ({
         image_url: "",
         started_at: null,
         post_flg: "",
+        username: "",
+        avatar_url: "",
       },
     }),
 }));

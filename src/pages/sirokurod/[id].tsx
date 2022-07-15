@@ -6,7 +6,6 @@ import Image from "next/image";
 import { format } from "date-fns";
 
 import { useQueryPost } from "../../hooks/useQueryPost";
-import { useQueryProfileOther } from "../../hooks/useQueryProfileOther";
 import { useDownloadUrl } from "../../hooks/useDownloadUrl";
 import { Appdrawer } from "../../components/Appdrawer";
 import { Footer } from "../../components/Footer";
@@ -23,8 +22,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Slider, { SliderThumb } from "@mui/material/Slider";
-import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
 
 const Id: NextPage = () => {
   const session = useStore((state) => state.session);
@@ -36,15 +35,15 @@ const Id: NextPage = () => {
   const { data: post_item } = useQueryPost(router.query.id);
   // console.log(post_item?.expire);
   console.log(post_item?.user_id);
-  const { data: profile } = useQueryProfileOther(post_item?.user_id);
   const { fullUrl: postImgUrl_rtn, isLoading } = useDownloadUrl(
     post_item?.image_url,
     "posts"
   );
   const { fullUrl: avatarUrl, isLoading: isLoadingAvatar } = useDownloadUrl(
-    profile?.avatar_url,
+    post_item?.avatar_url,
     "avatars"
   );
+  const guide_text = `post_item?.guide`;
 
   return (
     <>
@@ -82,58 +81,77 @@ const Id: NextPage = () => {
         )}
         {postImgUrl_rtn && post_item && (
           <Card raised className={styles.Banner}>
-            <Grid container spacing={0} className={styles.BannerGrid}>
-              <CardContent className={styles.Content}>
-                <CardMedia
-                  component="img"
-                  className={styles.Media}
-                  image={postImgUrl_rtn}
-                  alt={post_item?.stitle}
-                ></CardMedia>
-              </CardContent>
+            {/* <Grid container spacing={0} className={styles.BannerGrid}> */}
+            <Grid
+              container
+              spacing={1}
+              direction="row"
+              justifyItems="center"
+              alignItems="center"
+            >
+              <Grid item xs={1} sm={2}></Grid>
+              <Grid item xs={9} sm={9}>
+                <CardContent className={styles.Content}>
+                  <CardMedia
+                    component="img"
+                    className={styles.Media}
+                    image={postImgUrl_rtn}
+                    alt={post_item?.stitle}
+                  ></CardMedia>
+                </CardContent>
+              </Grid>
+              <Grid item xs={2} sm={1}></Grid>
             </Grid>
           </Card>
         )}
         <Box sx={{ m: 3 }} />
-        <Grid container spacing={0}>
-          <Grid item xs={1}>
-            😻 13
+        {!session && (
+          <Typography align="center" variant="h6">
+            好き嫌い投票するにはログインしてください
+          </Typography>
+        )}
+        {session && (
+          <Grid container spacing={0}>
+            <Grid item xs={1}>
+              😻 13
+            </Grid>
+            <Grid item xs={10}></Grid>
+            <Grid item xs={1}>
+              😹 3
+            </Grid>
+            <Slider
+              value={80}
+              min={0}
+              step={1}
+              max={100}
+              // scale={calculateValue}
+              // getAriaValueText={valueLabelFormat}
+              // valueLabelFormat={valueLabelFormat}
+              // onChange={handleChange}
+              valueLabelDisplay="auto"
+              aria-labelledby="non-linear-slider"
+            />
           </Grid>
-          <Grid item xs={10}></Grid>
-          <Grid item xs={1}>
-            😹 3
-          </Grid>
-        </Grid>
-        <Slider
-          value={80}
-          min={0}
-          step={1}
-          max={100}
-          // scale={calculateValue}
-          // getAriaValueText={valueLabelFormat}
-          // valueLabelFormat={valueLabelFormat}
-          // onChange={handleChange}
-          valueLabelDisplay="auto"
-          aria-labelledby="non-linear-slider"
-        />
+        )}
         <Box sx={{ m: 3 }} />
         {isLoadingAvatar && <Spinner />}
         {avatarUrl && !isLoadingAvatar && (
           <Grid container spacing={1}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={2}>
-              <Avatar alt="Avatar" src={avatarUrl} />
+            <Grid item xs={4} sm={5}></Grid>
+            <Grid item xs={2} sm={1}>
+              <Avatar alt="Avatar" src={avatarUrl} className={styles.White} />
             </Grid>
-            <Grid item xs={6}>
-              <Typography variant="body1">{profile?.username}</Typography>
+            <Grid item xs={6} sm={5}>
+              <Typography variant="h6">{post_item?.username}</Typography>
             </Grid>
-            <Grid item xs={2}></Grid>
           </Grid>
         )}
         <Box sx={{ m: 3 }} />
-        <Typography variant="body1">{post_item?.guide}</Typography>
+        <Typography variant="body1" whiteSpace="pre-wrap">
+          {post_item?.guide}
+        </Typography>
+        <Box sx={{ m: 3 }} />
       </div>
-      {!session && <p>ログインしてください。</p>}
       <Footer />
     </>
   );

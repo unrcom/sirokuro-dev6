@@ -1,4 +1,15 @@
 .container {
   padding: 0 1rem;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
+  /* display: flex; */
+}
+.swiper_slide {
+  text-align: center;
+  /* line-height: 1; */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.mouse_pointer {
+  cursor: pointer;
 }

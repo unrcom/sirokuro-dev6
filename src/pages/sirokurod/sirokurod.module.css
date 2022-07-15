@@ -14,3 +14,35 @@
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
+.Media {
+  position: relative;
+  padding: 15px;
+  background-color: white;
+  color: black;
+  width: 85%;
+  font-size: 36px;
+  font-weight: 200;
+  cursor: pointer;
+  max-height: 400px;
+  min-width: 260px;
+  max-width: 600px;
+}
+.Content {
+  /* align-items: center;
+  text-align: center; */
+}
+.Center {
+  align-items: center;
+  text-align: center;
+}
+.BannerGrid {
+  overflow: hidden;
+  /* padding: 20px 0; */
+  align-items: center;
+}
+.White {
+  border-radius: 9999px;
+  color: red;
+  background-color: red;
+  background: #fff;
+}
