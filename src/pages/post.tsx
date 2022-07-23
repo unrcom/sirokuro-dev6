@@ -8,6 +8,7 @@ import { useQueryProfile } from "../hooks/useQueryProfile";
 import { useMutatePost } from "../hooks/useMutatePost";
 import { useDownloadUrl } from "../hooks/useDownloadUrl";
 import { useUploadPostImg } from "../hooks/useUploadPostImg";
+import { useQueryCatsAll } from "../hooks/useQueryCatsAll";
 import { Spinner } from "../components/Spinner";
 import { Appdrawer } from "../components/Appdrawer";
 import { Footer } from "../components/Footer";
@@ -23,6 +24,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 
 import useStore from "../store";
 import { Post } from "../types";
@@ -45,6 +48,7 @@ const Post: NextPage = () => {
   const [title2, setTitle2] = useState<string | undefined>("");
   const [stitle, setStitle] = useState<string | undefined>("");
   const [guide, setGuide] = useState<string | undefined>("");
+  const [catId, setCatId] = useState<string | undefined>("");
   const [started_at, setStarted_at] = useState<Date | null>(null);
   const [expire, setExpire] = useState<Date | null>(null);
   const [post_flg, setPost_flg] = useState<string | undefined>("");
@@ -52,6 +56,8 @@ const Post: NextPage = () => {
   const { data: posts } = useQueryPosts();
   let posts_current = posts;
   // console.log(posts_current);
+
+  const { data: catsall } = useQueryCatsAll();
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,7 +107,7 @@ const Post: NextPage = () => {
                 stitle: stitle,
                 expire: expire,
                 guide: guide,
-                cat: "",
+                cat: catId,
                 image_url: postImgUrl_rtn,
                 started_at: started_at,
                 post_flg: post_flg,
@@ -136,7 +142,7 @@ const Post: NextPage = () => {
                 stitle: stitle,
                 expire: expire,
                 guide: guide,
-                cat: "",
+                cat: catId,
                 image_url: editedPost.image_url,
                 started_at: started_at,
                 post_flg: post_flg,
@@ -197,6 +203,12 @@ const Post: NextPage = () => {
     update({ ...editedPost, guide: e.target.value });
   };
 
+  const catIdHandleChange = (e: SelectChangeEvent<string>) => {
+    // console.log("setCatId");
+    setCatId(e.target.value);
+    update({ ...editedPost, cat: e.target.value });
+  };
+
   const started_atHandleChange = (newValue: Date | null) => {
     // console.log("setStarted_at");
     setStarted_at(newValue);
@@ -234,12 +246,14 @@ const Post: NextPage = () => {
     setGuide("");
     setStarted_at(null);
     setPost_flg("");
+    setCatId("");
     update({ ...editedPost, id: "" });
     update({ ...editedPost, title1: "" });
     update({ ...editedPost, title2: "" });
     update({ ...editedPost, stitle: "" });
     update({ ...editedPost, expire: null });
     update({ ...editedPost, guide: "" });
+    update({ ...editedPost, cat: "" });
     update({ ...editedPost, started_at: null });
     update({ ...editedPost, post_flg: "" });
     update({ ...editedPost, image_url: "noImage.png" });
@@ -256,6 +270,7 @@ const Post: NextPage = () => {
     setStitle(post.stitle);
     setExpire(post.expire);
     setGuide(post.guide);
+    setCatId(post.cat);
     setStarted_at(post.started_at);
     setPost_flg(post.post_flg);
     update({ ...editedPost, id: post.id });
@@ -264,6 +279,7 @@ const Post: NextPage = () => {
     update({ ...editedPost, stitle: stitle });
     update({ ...editedPost, expire: post.expire });
     update({ ...editedPost, guide: post.guide });
+    update({ ...editedPost, cat: post.cat });
     update({ ...editedPost, started_at: post.started_at });
     update({ ...editedPost, post_flg: post.post_flg });
     if (post.image_url) {
@@ -284,155 +300,187 @@ const Post: NextPage = () => {
       </Head>
       <header></header>
       <Appdrawer />
-      <div className={styles.container}>
+      <div className={styles.root}>
+        {/* <div className={styles.container}> */}
         {/* {session && <p>id: {id}</p>} */}
         {/* {logoutput("point01")} */}
-        <form onSubmit={submitHandler}>
-          {session && <div>　</div>}
-          {session && <div>　</div>}
-          {session && (
-            <TextField
-              required
-              variant="filled"
-              id="filled-required"
-              label="一覧表示用タイトル (ex.「sirokuro.site について」)"
-              fullWidth
-              value={stitle || ""}
-              onChange={(e) => stitleHandleChange(e)}
+        <form onSubmit={submitHandler} className={styles.root2}>
+          <Paper>
+            {/* {session && <div>　</div>} */}
+            <Box sx={{ m: 6 }} />
+            <Box
+              sx={{
+                width: {
+                  xs: "350px",
+                  sm: "570px",
+                  md: "768px",
+                  lg: "1000px",
+                  xl: "1500px",
+                },
+              }}
             />
-          )}
-          {session && <div>　</div>}
-          {session && (
-            <TextField
-              required
-              variant="filled"
-              id="filled-required"
-              label="タイトル・１ (ex.「私は sirokuro.site が大好き！」)"
-              fullWidth
-              value={title1 || ""}
-              onChange={(e) => title1HandleChange(e)}
-            />
-          )}
-          {session && <div>　</div>}
-          {session && (
-            <TextField
-              required
-              variant="filled"
-              id="filled-required"
-              label="タイトル・２ (ex.「あなたはどっち？」)"
-              fullWidth
-              value={title2 || ""}
-              onChange={(e) => title2HandleChange(e)}
-            />
-          )}
-          {/* {logoutput("point02")} */}
-          {session && <div>　</div>}
-          {session && (
-            <TextField
-              required
-              variant="filled"
-              id="filled-required"
-              label="ガイドテキスト (PO考え中)"
-              fullWidth
-              multiline
-              rows={3}
-              value={guide || ""}
-              onChange={(e) => guideHandleChange(e)}
-            />
-          )}
-          {session && <div>　</div>}
-          {session && (
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                label="掲載開始日 (月/日/年 時:分)"
-                value={started_at}
-                onChange={(e) => started_atHandleChange(e)}
-                renderInput={(params) => <TextField {...params} />}
+            {session && (
+              <TextField
+                required
+                fullWidth
+                variant="filled"
+                label="一覧表示用タイトル"
+                value={stitle || ""}
+                onChange={(e) => stitleHandleChange(e)}
+                helperText="ex.「sirokuro.site について」"
               />
-            </LocalizationProvider>
-          )}
-          {session && <div>　</div>}
-          {session && (
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                label="掲載終了日 (月/日/年 時:分)"
-                value={expire}
-                onChange={(e) => expireHandleChange(e)}
-                renderInput={(params) => <TextField {...params} />}
+            )}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <TextField
+                required
+                variant="filled"
+                label="タイトル・１"
+                fullWidth
+                value={title1 || ""}
+                onChange={(e) => title1HandleChange(e)}
+                helperText="ex.「私は sirokuro.site が大好き！」"
               />
-            </LocalizationProvider>
-          )}
-          {session && <div>　</div>}
-          {session && (
-            <FormControl fullWidth>
-              <InputLabel id="post_flg-select-label">掲載ステータス</InputLabel>
-              <Select
-                labelId="post_flg-select-label"
-                id="post_flg-select"
-                label="掲載ステータス"
-                //   className={styles.mt_4}
-                value={post_flg || ""}
-                onChange={(e) => post_flgHandleChange(e)}
-              >
-                <MenuItem key="0" value="0">
-                  準備中 (掲載されません)
-                </MenuItem>
-                <MenuItem key="1" value="1">
-                  掲載待ち (掲載されます)
-                </MenuItem>
-                <MenuItem key="8" value="8">
-                  掲載中止 (掲載されません)
-                </MenuItem>
-              </Select>
-            </FormControl>
-          )}
-          {session && postImgUrl_rtn && (
-            <div>
-              <p>掲載画像</p>
-              <Image
-                // src={image_url}
-                src={postImgUrl_rtn}
-                alt="postImage"
-                className={styles.rounded_full}
-                width={150}
-                height={150}
+            )}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <TextField
+                required
+                variant="filled"
+                label="タイトル・２"
+                fullWidth
+                value={title2 || ""}
+                onChange={(e) => title2HandleChange(e)}
+                helperText="ex.「あなたはどっち？」"
               />
-            </div>
-          )}
-          {isLoading && <Spinner />}
-          {session && (
-            <div className={styles.flex__justify_center}>
-              <label htmlFor="postImg">
-                <CameraIcon
-                  className={
-                    styles.my_3__h_7__w_7_cursor_pointer__text_gray_500
-                  }
+            )}
+            {/* {logoutput("point02")} */}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <TextField
+                required
+                variant="filled"
+                label="ガイドテキスト"
+                fullWidth
+                multiline
+                rows={3}
+                value={guide || ""}
+                onChange={(e) => guideHandleChange(e)}
+                helperText="(helperText は PO考え中)"
+              />
+            )}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <FormControl fullWidth>
+                <InputLabel id="post_flg-select-label">カテゴリー</InputLabel>
+                <Select
+                  labelId="post_flg-select-label"
+                  label="カテゴリー"
+                  value={catId || ""}
+                  onChange={(e) => catIdHandleChange(e)}
+                >
+                  {catsall?.map((cat) => (
+                    <MenuItem key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  label="掲載開始日 (月/日/年 時:分)"
+                  value={started_at}
+                  onChange={(e) => started_atHandleChange(e)}
+                  renderInput={(params) => <TextField {...params} />}
                 />
-              </label>
-              <input
-                className={styles.hidden}
-                type="file"
-                id="postImg"
-                accept="image/*"
-                // onChange={(e) => useMutateUploadPostImg.mutate(e)}
-                onChange={(e) => image_urlHandleChange(e)}
-              />
-            </div>
-          )}
+              </LocalizationProvider>
+            )}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  label="掲載終了日 (月/日/年 時:分)"
+                  value={expire}
+                  onChange={(e) => expireHandleChange(e)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            )}
+            <Box sx={{ m: 3 }} />
+            {session && (
+              <FormControl fullWidth>
+                <InputLabel id="post_flg-select-label">
+                  掲載ステータス
+                </InputLabel>
+                <Select
+                  labelId="post_flg-select-label"
+                  label="ステータス"
+                  //   className={styles.mt_4}
+                  value={post_flg || ""}
+                  onChange={(e) => post_flgHandleChange(e)}
+                >
+                  <MenuItem key="0" value="0">
+                    下書 (表示されません)
+                  </MenuItem>
+                  <MenuItem key="1" value="1">
+                    表示待ち→投票中→投票終了 (表示されます)
+                  </MenuItem>
+                  <MenuItem key="8" value="8">
+                    掲載中止 (表示されません)
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            )}
+            {session && postImgUrl_rtn && (
+              <div>
+                <p>掲載画像</p>
+                <Image
+                  // src={image_url}
+                  src={postImgUrl_rtn}
+                  alt="postImage"
+                  className={styles.Media}
+                  width={150}
+                  height={150}
+                />
+              </div>
+            )}
+            {isLoading && <Spinner />}
+            {session && (
+              <div className={styles.flex__justify_center}>
+                <label htmlFor="postImg">
+                  <CameraIcon
+                    className={
+                      styles.my_3__h_7__w_7_cursor_pointer__text_gray_500
+                    }
+                  />
+                </label>
+                <input
+                  className={styles.hidden}
+                  type="file"
+                  accept="image/*"
+                  // onChange={(e) => useMutateUploadPostImg.mutate(e)}
+                  onChange={(e) => image_urlHandleChange(e)}
+                />
+              </div>
+            )}
 
-          {/* {logoutput("point03")} */}
+            {/* {logoutput("point03")} */}
 
-          {session && (
-            <button
-              className={
-                styles.my_5__rounded__bg_indigo_600__px_3__py_2__text_sm__font_medium__text_white
-              }
-              // onClick={() => updatePost()}
-              disabled={updatePostMutation.isLoading}
-            >
-              {id ? "投稿内容を更新" : "新規に投稿する"}
-            </button>
-          )}
+            {session && (
+              <button
+                className={
+                  styles.my_5__rounded__bg_indigo_600__px_3__py_2__text_sm__font_medium__text_white
+                }
+                // onClick={() => updatePost()}
+                disabled={updatePostMutation.isLoading}
+              >
+                {id ? "投稿内容を更新" : "新規に投稿する"}
+              </button>
+            )}
+          </Paper>{" "}
         </form>
         {session && (
           <ul data-testid="ul-post" className="my-5">

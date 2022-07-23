@@ -84,3 +84,16 @@ export type Reply = {
   comment: string | undefined;
   delf: string;
 };
+export type Cat = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  user_id: string | undefined;
+  name: string | undefined;
+  post_cnt: number;
+  com_cnt: number;
+  reply_cnt: number;
+};
+export type EditedCat = {
+  name: string | undefined;
+};

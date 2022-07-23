@@ -12,6 +12,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 type Props = {
   post: Post;
@@ -94,6 +95,31 @@ export const Banner: FC<Props> = ({ post }) => {
     <Paper className={styles.Redf} elevation={0}>
       <Card raised className={styles.Banner}>
         <Grid container spacing={0} className={styles.BannerGrid}>
+          <Box
+            sx={{
+              bgcolor: "#121212",
+              p: 0.5,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          ></Box>
+          <Grid item key={post.id} xs={12}>
+            <Paper className={styles.Red} elevation={0}>
+              <CardContent>
+                <Typography
+                  // alignItems="center"
+                  // justifyContent="center"
+                  align="center"
+                  variant="body1"
+                  className={styles.Orange}
+                >
+                  {post.title1}
+                </Typography>
+              </CardContent>
+            </Paper>
+          </Grid>
+
           {items}
         </Grid>
       </Card>

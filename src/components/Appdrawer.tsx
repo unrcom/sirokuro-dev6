@@ -100,7 +100,7 @@ export const Appdrawer: FC = () => {
     { name: "sirokuro.siteについて", anchor: "/about" },
     { name: "よくある質問", anchor: "/faq" },
     { name: "プロフィールの編集", anchor: "/profile" },
-    // { name: "カテゴリーを追加する [＋]", anchor: "/cat" },
+    { name: "カテゴリーを追加する [＋]", anchor: "/catedit" },
   ];
 
   return (
@@ -172,7 +172,7 @@ export const Appdrawer: FC = () => {
             </ListItemButton>
           ))}
         </List>
-        {/* <Divider className="Menu" /> */}
+        <Divider className="Menu" />
         <List>
           {[
             // "ほしい？",

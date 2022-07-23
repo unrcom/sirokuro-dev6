@@ -38,17 +38,6 @@ const Sirokuro: NextPage = () => {
       <header></header>
       <Appdrawer />
       <div className={styles.container}>
-        <ul data-testid="ul-post" className="my-5">
-          {posts_full?.map((post_full) => {
-            <li className="w-80" key={post_full.id}>
-              <Button variant="text" className={styles.mouse_pointer}>
-                {post_full.stitle}
-              </Button>
-            </li>;
-          })}
-        </ul>
-      </div>
-      <div className={styles.container}>
         <Box sx={{ m: 3 }} />
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}

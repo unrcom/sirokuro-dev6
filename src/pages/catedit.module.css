@@ -32,7 +32,7 @@
 }
 .my_5__rounded__bg_indigo_600__px_3__py_2__text_sm__font_medium__text_white {
   margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  /* margin-bottom: 1.25rem; */
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
@@ -55,7 +55,6 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: dimgray;
   min-height: 82vh;
-  /* min-height: 1000px; */
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -69,16 +68,37 @@
   align-items: center;
   justify-content: center;
 }
-.Media {
-  position: relative;
-  background-color: white;
-  color: black;
-  font-size: 36px;
-  font-weight: 200;
+.my_2__mx_2__rounded__border__border_gray_300__px_3__py_2__text_sm__focus_outline_none {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.disable_btn {
+  color: gray;
+  cursor: not-allowed;
+  text-transform: none;
+}
+.enable_btn {
   cursor: pointer;
-  max-height: 400px;
-  min-width: 120px;
-  max-width: 720px;
-  /* align-items: center;
-  text-align: center; */
+  text-transform: none;
+}
+.my_3__w_full__border__border_dashed__border_gray_400 {
+  /* margin-top: 0.75rem; */
+  margin-bottom: 0.75rem;
+  width: 100%;
+  border-width: 1px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgba(156, 163, 175, var(--tw-border-opacity));
 }

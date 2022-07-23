@@ -19,6 +19,7 @@ export type Post = {
   stoped_at: string | undefined;
   username: string | undefined;
   avatar_url: string | undefined;
+  cat_id: string | undefined;
 };
 
 export const useQueryPost = (id: string | string[] | undefined) => {
